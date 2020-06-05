@@ -3,7 +3,7 @@ import {
   NodeProperties,
 } from 'node-red';
 
-import { dataPointSchema } from './dashboard-chart-convert-schema';
+import { dataPointSchema } from './dashboard-chart-converter-schema';
 
 type MessageType = 'stream' | 'datalogger';
 

@@ -2,7 +2,6 @@ import {
   object,
   string,
   number,
-  mixed,
   array,
 } from 'yup';
 
