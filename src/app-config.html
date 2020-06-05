@@ -1,0 +1,45 @@
+<script type="text/javascript">
+  RED.nodes.registerType('oring-paas-app-config', {
+    category: 'config',
+    defaults: {
+      name: {
+        value: '',
+        required: true,
+      },
+      appId: {
+        value: '',
+        required: true,
+      },
+      appSecret: {
+        value: '',
+        required: true,
+      },
+      apiKey: {
+        value: '',
+        required: true,
+      },
+    },
+    label() {
+      return this.name;
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="oring-paas-app-config">
+  <div class="form-row">
+    <label for="node-config-input-name"></i> App Name </label>
+    <input type="text" id="node-config-input-name" placeholder="App Name" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-appId"></i> App Identity </label>
+    <input type="text" id="node-config-input-appId" placeholder="App Identity" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-appSecret"></i> App Secret </label>
+    <input type="password" id="node-config-input-appSecret" placeholder="App Secret" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-apiKey"></i> API Key </label>
+    <input type="password" id="node-config-input-apiKey" placeholder="API Key" />
+  </div>
+</script>

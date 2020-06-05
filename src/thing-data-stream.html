@@ -1,0 +1,52 @@
+<script type="text/javascript">
+  RED.nodes.registerType('oring-paas-thing-data-stream', {
+    category: 'ORing PaaS',
+    defaults: {
+      appConfig: {
+        type: 'oring-paas-app-config',
+        required: true,
+      },
+      name: {
+        value: '',
+        required: true,
+      },
+      thingId: {
+        value: '',
+        required: true,
+      },
+      validatePayload: {
+        value: true,
+        required: true,
+      }
+    },
+    color: '#ea9514',
+    icon: 'font-awesome/fa-cloud',
+    inputs: 0,
+    outputs: 1,
+    label() {
+      return this.name || 'thing data stream';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="oring-paas-thing-data-stream">
+  <div class="form-row">
+    <label for="node-input-appConfig"></i> App Config </label>
+    <input type="text" id="node-input-appConfig" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"></i> Thing Name </label>
+    <input type="text" id="node-input-name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-thingId"></i> Thing Identity </label>
+    <input type="text" id="node-input-thingId" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-validatePayload"><i class="fa fa-cog"></i> Settings</label>
+    <label for="node-input-validatePayload" style="width:70%">
+    <input type="checkbox" id="node-input-validatePayload" style="display:inline-block; width:22px; vertical-align:baseline;"/>
+    Validate payload before sending.
+    </label>
+  </div>
+</script>
