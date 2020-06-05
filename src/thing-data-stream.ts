@@ -6,7 +6,7 @@ import {
 import { connect } from 'mqtt';
 import axios, { AxiosResponse } from 'axios';
 
-import { idValueArraySchema } from './thing-data-schema';
+import { idValueArraySchema } from './thing-data-stream-schema';
 
 interface ThingDataStreamProperties extends NodeProperties {
   thingId: string;
@@ -91,20 +91,23 @@ export = function (RED: Red): void {
     this.handleMqttMessage = async (topic: string, message: Buffer) => {
       try {
         const timestamp = Date.now();
-        let payload = JSON.parse(message.toString());
-        if (!Array.isArray(payload)) {
-          payload = [payload];
+        let values = JSON.parse(message.toString());
+        if (!Array.isArray(values)) {
+          values = [values];
         }
 
         if (config.validatePayload) {
-          await idValueArraySchema.validate(payload);
+          await idValueArraySchema.validate(values);
         }
 
         this.send({
           payload: {
             topic,
-            timestamp,
-            payload,
+            data: {
+              timestamp,
+              values,
+            },
+            type: 'stream',
           },
         });
       } catch (err) {

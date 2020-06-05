@@ -24,7 +24,8 @@
   "node-red": {
     "nodes": {
       "oring-paas-app-config": "lib/app-config.js",
-      "oring-paas-data-stream": "lib/thing-data-stream.js"
+      "oring-paas-data-stream": "lib/thing-data-stream.js",
+      "oring-paas-dashboard-chart-converter": "lib/dashboard-chart-converter.js"
     }
   },
   "dependencies": {
