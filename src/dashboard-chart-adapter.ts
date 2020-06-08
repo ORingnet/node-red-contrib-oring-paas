@@ -9,6 +9,7 @@ type MessageType = 'stream' | 'datalogger';
 
 interface DashboardChartAdapterProperties extends NodeProperties {
   dataIds?: string;
+  excludeDataIds?: string;
 }
 
 interface DataPoint {
@@ -40,6 +41,10 @@ export = function (RED: Red): void {
       .split(',')
       .filter((v) => v !== '');
 
+    const excludeDataIds = (config.excludeDataIds || '')
+      .split(',')
+      .filter((v) => v !== '');
+
     this.converterStreamData = async (dataPoint: DataPoint): Promise<ChartDataPoint[]> => {
       try {
         await dataPointSchema.validate(dataPoint);
@@ -56,15 +61,23 @@ export = function (RED: Red): void {
     };
 
     this.filterDataIdsIfNeeded = (chartDataPoints: ChartDataPoint[]) => {
+      let result = chartDataPoints;
       if (dataIds.length) {
-        return chartDataPoints
+        result = result
           .filter(
             (dataPoint) => dataIds
               .some((d) => d === dataPoint.series),
           );
       }
 
-      return chartDataPoints;
+      if (excludeDataIds.length) {
+        result = result.filter(
+          (dataPoint) => !excludeDataIds
+            .some((d) => d === dataPoint.series),
+        );
+      }
+
+      return result;
     };
 
     this.on('input', async (
