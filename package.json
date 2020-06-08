@@ -25,7 +25,8 @@
     "nodes": {
       "oring-paas-app-config": "lib/app-config.js",
       "oring-paas-data-stream": "lib/thing-data-stream.js",
-      "oring-paas-dashboard-chart-converter": "lib/dashboard-chart-converter.js"
+      "oring-paas-dashboard-chart-adapter": "lib/dashboard-chart-adapter.js",
+      "oring-paas-dashboard-gauge-adapter": "lib/dashboard-gauge-adapter.js"
     }
   },
   "dependencies": {

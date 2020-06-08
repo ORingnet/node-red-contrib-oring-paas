@@ -1,0 +1,33 @@
+<script type="text/javascript">
+  RED.nodes.registerType('oring-paas-dashboard-gauge-adapter', {
+    category: 'ORing PaaS',
+    defaults: {
+      dataId: {
+        value: '',
+        required: true,
+      }
+    },
+    color: '#ea9514',
+    icon: 'font-awesome/fa-terminal',
+    inputs: 1,
+    outputs: 1,
+    label() {
+      return 'dashboard gauge adapter';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="oring-paas-dashboard-gauge-adapter">
+  <div class="form-row">
+    <label for="node-input-name"></i> Data Identity </label>
+    <input type="text" id="node-input-dataId" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="oring-paas-dashboard-gauge-adapter">
+  <p>Convert thing-data-stream-node payload into <a href="https://github.com/node-red/node-red-dashboard">node-red-dashboard gauge</a> payload.</p>
+  <h3>Propertites</h3>
+  <ul>
+    <li>Data Identy: Extract specific data identity from the input payload.</li>
+  <ul>
+</script>
