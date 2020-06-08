@@ -3,11 +3,11 @@ import {
   NodeProperties,
 } from 'node-red';
 
-import { dataPointSchema } from './dashboard-chart-converter-schema';
+import { dataPointSchema } from './dashboard-adapter-schema';
 
 type MessageType = 'stream' | 'datalogger';
 
-interface DashboardChartConverterProperties extends NodeProperties {
+interface DashboardChartAdapterProperties extends NodeProperties {
   dataIds?: string;
 }
 
@@ -33,7 +33,7 @@ interface ChartDataPoint {
 }
 
 export = function (RED: Red): void {
-  function DashboardChartConverter(config: DashboardChartConverterProperties): void {
+  function DashboardChartAdapter(config: DashboardChartAdapterProperties): void {
     RED.nodes.createNode(this, config);
 
     const dataIds = (config.dataIds || '')
@@ -90,5 +90,5 @@ export = function (RED: Red): void {
     });
   }
 
-  RED.nodes.registerType('oring-paas-dashboard-chart-converter', DashboardChartConverter);
+  RED.nodes.registerType('oring-paas-dashboard-chart-adapter', DashboardChartAdapter);
 }

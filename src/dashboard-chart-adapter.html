@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  RED.nodes.registerType('oring-paas-dashboard-chart-converter', {
+  RED.nodes.registerType('oring-paas-dashboard-chart-adapter', {
     category: 'ORing PaaS',
     defaults: {
       dataIds: {
@@ -12,19 +12,19 @@
     inputs: 1,
     outputs: 1,
     label() {
-      return 'dashboard chart converter';
+      return 'dashboard chart adapter';
     }
   });
 </script>
 
-<script type="text/html" data-template-name="oring-paas-dashboard-chart-converter">
+<script type="text/html" data-template-name="oring-paas-dashboard-chart-adapter">
   <div class="form-row">
     <label for="node-input-name"></i> Data Identities </label>
     <input type="text" id="node-input-dataIds" />
   </div>
 </script>
 
-<script type="text/html" data-help-name="oring-paas-dashboard-chart-converter">
+<script type="text/html" data-help-name="oring-paas-dashboard-chart-adapter">
   <p>Convert thing-data-stream-node payload into <a href="https://github.com/node-red/node-red-dashboard/blob/master/Charts.md">node-red-dashboard chart</a> payload.</p>
   <h3>Propertites</h3>
   <ul>
