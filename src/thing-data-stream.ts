@@ -1,12 +1,18 @@
 import {
   Red,
   NodeProperties,
-  NodeStatus,
 } from 'node-red';
 import { connect } from 'mqtt';
 import axios, { AxiosResponse } from 'axios';
 
 import { idValueArraySchema } from './thing-data-stream-schema';
+import {
+  MQTT_BROKER_URL,
+  CONNECTED_STATUS,
+  CONNECTING_STATUS,
+  DISCONNECTED_STATUS,
+  ERROR_STATUS,
+} from './consts/mqtt';
 
 interface ThingDataStreamProperties extends NodeProperties {
   thingId: string;
@@ -21,31 +27,6 @@ interface GetDataBucketsResponse {
 }
 
 export = function (RED: Red): void {
-  const mqttBrokerUrl = 'mqtt://mqtt.paas.oringnet.cloud';
-  const CONNECTED_STATUS: NodeStatus = {
-    fill: 'green',
-    shape: 'dot',
-    text: 'connected',
-  };
-
-  const CONNECTING_STATUS: NodeStatus = {
-    fill: 'yellow',
-    shape: 'dot',
-    text: 'connecting',
-  };
-
-  const DISCONNECTED_STATUS: NodeStatus = {
-    fill: 'red',
-    shape: 'dot',
-    text: 'disconnected',
-  };
-
-  const ERROR_STATUS: NodeStatus = {
-    fill: 'red',
-    shape: 'dot',
-    text: 'error',
-  };
-
   function ThingDataStream(config: ThingDataStreamProperties): void {
     RED.nodes.createNode(this, config);
     this.appConfig = RED.nodes.getNode(config.appConfig);
@@ -53,7 +34,7 @@ export = function (RED: Red): void {
     this.connectMqtt = () => {
       const clientId = `app:${this.appConfig.appId}:${Date.now()}`;
       this.mqttClient = connect(
-        mqttBrokerUrl,
+        MQTT_BROKER_URL,
         {
           clientId,
           username: this.appConfig.appId as string,
@@ -135,7 +116,7 @@ export = function (RED: Red): void {
       });
 
       this.mqttClient.on('error', (err: Error) => {
-        this.status(DISCONNECTED_STATUS);
+        this.status(ERROR_STATUS);
         this.error(err, err.message);
       });
 
