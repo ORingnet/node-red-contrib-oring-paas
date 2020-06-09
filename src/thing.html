@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  RED.nodes.registerType('oring-paas-thing-data-stream', {
+  RED.nodes.registerType('oring-paas-thing', {
     category: 'ORing PaaS',
     defaults: {
       appConfig: {
@@ -20,33 +20,46 @@
       }
     },
     color: '#ea9514',
-    icon: 'font-awesome/fa-cloud-upload',
-    inputs: 0,
+    icon: 'font-awesome/fa-microchip',
+    inputs: 1,
     outputs: 1,
     label() {
-      return this.name || 'thing data stream';
+      return this.name || 'oring paas thing';
     }
   });
 </script>
 
-<script type="text/html" data-template-name="oring-paas-thing-data-stream">
+<script type="text/html" data-template-name="oring-paas-thing">
   <div class="form-row">
-    <label for="node-input-appConfig"></i> App Config </label>
+    <label for="node-input-appConfig">App Config </label>
     <input type="text" id="node-input-appConfig" />
   </div>
   <div class="form-row">
-    <label for="node-input-name"></i> Thing Name </label>
+    <label for="node-input-name">Thing Name </label>
     <input type="text" id="node-input-name" />
   </div>
   <div class="form-row">
-    <label for="node-input-thingId"></i> Thing Identity </label>
+    <label for="node-input-thingId">Thing Id </label>
     <input type="text" id="node-input-thingId" />
   </div>
   <div class="form-row">
-    <label for="node-input-validatePayload"><i class="fa fa-cog"></i> Settings</label>
+    <label><i class="fa fa-cog"></i> Settings</label>
     <label for="node-input-validatePayload" style="width:70%">
     <input type="checkbox" id="node-input-validatePayload" style="display:inline-block; width:22px; vertical-align:baseline;"/>
     Validate payload before sending.
     </label>
   </div>
+</script>
+
+<script type="text/html" data-help-name="oring-paas-thing">
+  <p>Create an end to end connection between ORing PaaS application and registerd thing.</p>
+  <h3>Propertites</h3>
+  <dl class="message-properties">
+    <dt>App Config:</dt>
+    <dd>An ORing PaaS application, please follow <a href="https://docs.paas.oringnet.cloud/#creating-an-api-key">this guide</a> to create an app and generate an api key.</dd>
+    <dt>Thing Name:</dt>
+    <dd>Thing's name.</dd>
+    <dt>Thing Id:</dt>
+    <dd>Thing's identity.</dd>
+  </dl>
 </script>

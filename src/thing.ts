@@ -6,6 +6,7 @@ import { connect } from 'mqtt';
 import axios, { AxiosResponse } from 'axios';
 
 import { idValueArraySchema } from './thing-data-stream-schema';
+import { thingCommandSchema } from './thing-command-schema';
 import {
   MQTT_BROKER_URL,
   CONNECTED_STATUS,
@@ -14,7 +15,7 @@ import {
   ERROR_STATUS,
 } from './consts/mqtt';
 
-interface ThingDataStreamProperties extends NodeProperties {
+interface ThingProperties extends NodeProperties {
   thingId: string;
   appConfig: string;
   validatePayload: boolean;
@@ -26,8 +27,16 @@ interface GetDataBucketsResponse {
   }[];
 }
 
+interface Input {
+  payload: {
+    topic: string;
+    commandId: string;
+    value: string | number | boolean;
+  }
+}
+
 export = function (RED: Red): void {
-  function ThingDataStream(config: ThingDataStreamProperties): void {
+  function Thing(config: ThingProperties): void {
     RED.nodes.createNode(this, config);
     this.appConfig = RED.nodes.getNode(config.appConfig);
 
@@ -123,6 +132,32 @@ export = function (RED: Red): void {
       this.mqttClient.on('message', this.handleMqttMessage);
     }
 
+    this.on('input', async (
+      message: Input,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      send: (payload: any) => void,
+      done: (err?: Error) => void,
+    ) => {
+      try {
+        await thingCommandSchema.validate(message);
+        if (this.mqttClient.connected) {
+          this.mqttClient.publish(
+            `$thing/${config.thingId}/$cmd/$downlink/${message.payload.topic}`,
+            JSON.stringify({
+              id: message.payload.commandId,
+              value: message.payload.value,
+            }),
+          );
+        }
+
+        if (done) {
+          done();
+        }
+      } catch (err) {
+        this.error(err, err.message);
+      }
+    });
+
     this.on('close', (done: () => undefined) => {
       if (this.mqttClient) {
         this.mqttClient.end();
@@ -132,5 +167,5 @@ export = function (RED: Red): void {
     });
   }
 
-  RED.nodes.registerType('oring-paas-thing-data-stream', ThingDataStream);
+  RED.nodes.registerType('oring-paas-thing', Thing);
 }
