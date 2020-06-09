@@ -1,0 +1,57 @@
+<script type="text/javascript">
+  RED.nodes.registerType('oring-paas-thing-command', {
+    category: 'ORing PaaS',
+    defaults: {
+      appConfig: {
+        type: 'oring-paas-app-config',
+        required: true,
+      },
+      name: {
+        value: '',
+        required: true,
+      },
+      thingId: {
+        value: '',
+        required: true,
+      },
+      topic: {
+        value: '',
+        required: true,
+      },
+      commandId: {
+        value: '',
+        required: true,
+      }
+    },
+    color: '#ea9514',
+    icon: 'font-awesome/fa-cloud-download',
+    inputs: 1,
+    outputs: 0,
+    label() {
+      return this.name || 'thing command';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="oring-paas-thing-command">
+  <div class="form-row">
+    <label for="node-input-appConfig"></i> App Config </label>
+    <input type="text" id="node-input-appConfig" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"></i> Thing Name </label>
+    <input type="text" id="node-input-name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-thingId"></i> Thing Identity </label>
+    <input type="text" id="node-input-thingId" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-topic"></i> Topic </label>
+    <input type="text" id="node-input-topic" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-commandId"></i> Command Identity </label>
+    <input type="text" id="node-input-commandId" />
+  </div>
+</script>
