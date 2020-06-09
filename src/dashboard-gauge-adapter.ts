@@ -57,7 +57,9 @@ export = function (RED: Red): void {
           case 'stream':
             {
               const value = await this.converterStreamData(message.payload.data);
-              send(value);
+              if (typeof value.payload !== 'undefined') {
+                send(value);
+              }
             }
             break;
           default:
