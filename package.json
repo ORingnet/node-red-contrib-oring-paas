@@ -1,6 +1,6 @@
 {
   "name": "@oringnet/node-red-contrib-oring-paas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node-RED nodes for the ORing PaaS.",
   "scripts": {
     "build": "rimraf lib && tsc -p tsconfig.json && cp src/*.html lib/",
@@ -33,5 +33,8 @@
     "axios": "^0.19.2",
     "mqtt": "^4.1.0",
     "yup": "^0.29.1"
-  }
+  },
+  "keywords": [
+    "node-red"
+  ]
 }
