@@ -81,7 +81,7 @@ You can build a [Node-RED dashboard](https://flows.nodered.org/node/node-red-das
 
 #### Step 1: Step up oring paas thing node correctly
 
-#### Step 2: Add oring-paas-dashboard-chart-node to the flow
+#### Step 2: Add oring paas dashboard chart adapter node to the flow
 
 The node can be configured to include/exclude specific data identities.
 
@@ -132,4 +132,4 @@ After the switch being toggled, the command will be sent to `$thing/{thingId}/$c
 
 © ORing Industrial Networking Corp., 2020-NOW
 
-Released under the [MIT License](https://github.com/ORingnet/node-red-contrib-oring-paas/blob/master/License)
+Released under the [MIT License](https://github.com/ORingnet/node-red-contrib-oring-paas/blob/master/LICENCE)
