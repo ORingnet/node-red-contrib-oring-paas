@@ -11,7 +11,7 @@
         required: false,
       }
     },
-    color: '#ea9514',
+    color: '#68b500',
     icon: 'font-awesome/fa-plug',
     inputs: 1,
     outputs: 1,
@@ -23,20 +23,22 @@
 
 <script type="text/html" data-template-name="oring-paas-dashboard-chart-adapter">
   <div class="form-row">
-    <label for="node-input-name"></i> Data Identities </label>
+    <label for="node-input-dataIds">Data Identities </label>
     <input type="text" id="node-input-dataIds" />
   </div>
   <div class="form-row">
-    <label for="node-input-name"></i> Exclude Data Identities </label>
+    <label for="node-input-excludeDataIds">Exclude Data Identities </label>
     <input type="text" id="node-input-excludeDataIds" />
   </div>
 </script>
 
 <script type="text/html" data-help-name="oring-paas-dashboard-chart-adapter">
-  <p>Convert thing-data-stream-node payload into <a href="https://github.com/node-red/node-red-dashboard/blob/master/Charts.md">node-red-dashboard chart</a> payload.</p>
+  <p>Convert oring-paas-thing node output payload into <a href="https://github.com/node-red/node-red-dashboard/blob/master/Charts.md">node-red-dashboard chart</a> payload.</p>
   <h3>Propertites</h3>
-  <ul>
-    <li>Data Identites: Include specific data identites from the input payload, each identity separated by a comma.</li>
-    <li>Exclude Data Identites: Exclude specific data identites from the input payload, each identity separated by a comma.</li>
-  <ul>
+  <dl class="message-properties">
+    <dt>Data Identites:</dt>
+    <dd>Include specific data identites from the input payload, each identity separated by a comma.</dd>
+    <dt>Exclude Data Identites:</dt>
+    <dd>Exclude specific data identites from the input payload, each identity separated by a comma.</dd>
+  </dl>
 </script>

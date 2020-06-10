@@ -53,13 +53,37 @@
 
 <script type="text/html" data-help-name="oring-paas-thing">
   <p>Create an end to end connection between ORing PaaS application and registerd thing.</p>
+
   <h3>Propertites</h3>
   <dl class="message-properties">
-    <dt>App Config:</dt>
-    <dd>An ORing PaaS application, please follow <a href="https://docs.paas.oringnet.cloud/#creating-an-api-key">this guide</a> to create an app and generate an api key.</dd>
-    <dt>Thing Name:</dt>
+    <dt>App Config</dt>
+    <dd>Please follow <a href="https://docs.paas.oringnet.cloud/#creating-an-api-key">this guide</a> to create an app and generate an api key.</dd>
+    <dt>Thing Name <span class="property-type">string</span></dt>
     <dd>Thing's name.</dd>
-    <dt>Thing Id:</dt>
+    <dt>Thing Id <span class="property-type">string</span></dt>
     <dd>Thing's identity.</dd>
+  </dl>
+
+  <h3>Input</h3>
+  <p>Define a command payload</p>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The command topic name.</dd>
+    <dt>commandId <span class="property-type">string</span></dt>
+    <dd>The id in the command payload.</dd>
+    <dt>value <span class="property-type">string | number | boolean</span></dt>
+    <dd>The value in the command payload.</dd>
+  </dl>
+
+  <h3>Output</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The topic of message coming from</dd>
+    <dt>type <span class="property-type">string</span></dt>
+    <dd>Output message type, it will be used by dashboard adapter node.</dd>
+    <dt>data.timestamp <span class="property-type">number</span></dt>
+    <dd>Received data timestamp.</dd>
+    <dt>data.values <span class="property-type">array</span></dt>
+    <dd>Array of data payload, for more information please see <a href="https://docs.paas.oringnet.cloud/#data-topic">Topic payload definition.</a></dd>
   </dl>
 </script>
