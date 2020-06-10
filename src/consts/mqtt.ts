@@ -1,6 +1,6 @@
 import { NodeStatus } from 'node-red';
 
-export const MQTT_BROKER_URL = 'mqtt://mqtt.paas.oringnet.cloud';
+export const MQTT_BROKER_URL = 'mqtts://mqtt.paas.oringnet.cloud:8083';
 
 export const CONNECTED_STATUS: NodeStatus = {
   fill: 'green',
