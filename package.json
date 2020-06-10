@@ -1,13 +1,13 @@
 {
   "name": "@oringnet/node-red-contrib-oring-paas",
   "version": "1.0.0",
-  "description": "Node-RED nodes for ORing PaaS.",
+  "description": "Node-RED nodes for the ORing PaaS.",
   "scripts": {
     "build": "rimraf lib && tsc -p tsconfig.json && cp src/*.html lib/",
     "prepublish": "npm run build"
   },
   "author": "Ben Hu <benhu@oringnet.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.0.9",
     "@types/node-red": "^0.20.1",
