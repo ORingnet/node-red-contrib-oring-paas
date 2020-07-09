@@ -27,7 +27,7 @@ interface Message {
 }
 
 interface GaugeDataPoint {
-  payload: number;
+  payload: string | number | boolean;
 }
 
 export = function (RED: Red): void {
@@ -35,8 +35,7 @@ export = function (RED: Red): void {
     RED.nodes.createNode(this, config);
     const { dataId } = config;
 
-    this.converterStreamData = async (dataPoint: DataPoint): Promise<GaugeDataPoint> => {
-      await dataPointSchema.validate(dataPoint);
+    this.converterStreamData = (dataPoint: DataPoint): GaugeDataPoint => {
       const { values } = dataPoint;
       return values
         .filter((v) => v.id === dataId)
@@ -56,7 +55,8 @@ export = function (RED: Red): void {
         switch (message.payload.type) {
           case 'stream':
             {
-              const value = await this.converterStreamData(message.payload.data);
+              await dataPointSchema.validate(message.payload.data);
+              const value = this.converterStreamData(message.payload.data);
               if (typeof value.payload !== 'undefined') {
                 send(value);
               }

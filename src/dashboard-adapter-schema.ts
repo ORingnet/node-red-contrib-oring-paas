@@ -3,6 +3,7 @@ import {
   string,
   number,
   array,
+  mixed,
 } from 'yup';
 
 export const dataPointSchema = object().shape({
@@ -10,7 +11,7 @@ export const dataPointSchema = object().shape({
   values: array().of(
     object().shape({
       id: string().required(),
-      value: number().required(),
+      value: mixed().required(),
     }),
   ),
 });

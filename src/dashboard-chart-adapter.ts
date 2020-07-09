@@ -16,7 +16,8 @@ interface DataPoint {
   timestamp: number;
   values: {
     id: string;
-    value: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any;
   }[]
 }
 
@@ -45,19 +46,15 @@ export = function (RED: Red): void {
       .split(',')
       .filter((v) => v !== '');
 
-    this.converterStreamData = async (dataPoint: DataPoint): Promise<ChartDataPoint[]> => {
-      try {
-        await dataPointSchema.validate(dataPoint);
-        const { values } = dataPoint;
-        return values.map((v) => ({
+    this.converterStreamData = (dataPoint: DataPoint): ChartDataPoint[] => {
+      const { values } = dataPoint;
+      return values
+        .filter((v) => typeof v.value === 'number')
+        .map((v) => ({
           timestamp: dataPoint.timestamp,
           series: v.id,
           payload: v.value,
         }));
-      } catch (err) {
-        this.error(err, err.message);
-        return [];
-      }
     };
 
     this.filterDataIdsIfNeeded = (chartDataPoints: ChartDataPoint[]) => {
@@ -86,19 +83,28 @@ export = function (RED: Red): void {
       send: (payload: any) => void,
       done: (err?: Error) => void,
     ) => {
-      switch (message.payload.type) {
-        case 'stream':
-          this.filterDataIdsIfNeeded(
-            (await this.converterStreamData(message.payload.data)),
-          )
-            .forEach(send);
-          break;
-        default:
-          break;
-      }
+      try {
+        switch (message.payload.type) {
+          case 'stream':
+            await dataPointSchema.validate(message.payload.data);
+            this.filterDataIdsIfNeeded(
+              this.converterStreamData(message.payload.data),
+            )
+              .forEach(send);
+            break;
+          default:
+            break;
+        }
 
-      if (done) {
-        done();
+        if (done) {
+          done();
+        }
+      } catch (err) {
+        if (done) {
+          done(err);
+        } else {
+          this.error(err, err.message);
+        }
       }
     });
   }
